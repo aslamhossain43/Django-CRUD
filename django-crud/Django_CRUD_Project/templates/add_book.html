@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+<form action="/create">
+{% csrf_token %}
+<label class="form-group" for="title">Title : </label>
+<input class="form-control" type="text" name="title"><br>
+
+<label class="form-group" for="price">Price : </label>
+<input class="form-control" type="text" name="price"><br>
+
+<label class="form-group" for="author">Author : </label>
+<input class="form-control" type="text" name="author"><br>
+
+<input class="btn btn-info" type="submit" value="Add Books"><br>
+
+
+
+</form>
+
+{% endblock %}
+
+
+
+
+
