@@ -1,0 +1,111 @@
+Index: Django_CRUD_Project/templates/base.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% load static %}\n\n<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n  <meta name=\"description\" content=\"\">\n  <meta name=\"author\" content=\"\">\n\n  <title>Landing Page - Start Bootstrap Theme</title>\n\n  <!-- Bootstrap core CSS -->\n  <link href=\"{% static 'vendor/bootstrap/css/bootstrap.min.css' %}\" rel=\"stylesheet\">\n\n</head>\n\n<body>\n{% block content %}\n\n\n{% endblock %}\n\n  <!-- Bootstrap core JavaScript -->\n  <script src=\"{% static 'vendor/jquery/jquery.min.js' %}\"></script>\n  <script src=\"{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}\"></script>\n\n</body>\n\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Django_CRUD_Project/templates/base.html	(revision b3ca051e83f7355bbe31ca8f067b3a0f4d492d0b)
++++ Django_CRUD_Project/templates/base.html	(date 1557305786680)
+@@ -18,6 +18,11 @@
+ </head>
+ 
+ <body>
++<br><br>
++<div class="container">
++  <div class="row">
++
++    <div class="col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+ {% block content %}
+ 
+ 
+@@ -26,7 +31,9 @@
+   <!-- Bootstrap core JavaScript -->
+   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+   <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+-
++</div>
++</div>
++</div>
+ </body>
+ 
+ </html>
+\ No newline at end of file
+Index: Django_CRUD_Project/templates/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% extends 'base.html' %}\n\n\n\n{% block content %}\n\n\n<table class=\"table table-dark\">\n<thead>\n\n<tr>\n    <td>Title</td>\n    <td>Price</td>\n    <td>Author</td>\n    <td>Actions</td>\n</tr>\n</thead>\n<tbody>\n{% for b in book%}\n<tr>\n    <td>{{b.title}}</td>\n    <td>{{b.price}}</td>\n    <td>{{b.author}}</td>\n    <td>\n        <a href=\"/edit/{{b.id}}\" class=\"btn btn-info\">Edit</a>\n        <a href=\"/delete/{{b.id}}\" class=\"btn btn-danger\">Delete</a>\n\n    </td>\n\n</tr>\n{% endfor %}\n\n</tbody>\n\n\n\n\n</table>\n\n\n\n{% endblock %}\n\n\n\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Django_CRUD_Project/templates/index.html	(revision b3ca051e83f7355bbe31ca8f067b3a0f4d492d0b)
++++ Django_CRUD_Project/templates/index.html	(date 1557306116315)
+@@ -38,6 +38,8 @@
+ </table>
+ 
+ 
++<br>
++<a class="btn btn-info" href="/add_book">Add Books</a>
+ 
+ {% endblock %}
+ 
+Index: Django_CRUD_Project/templates/add_book.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Django_CRUD_Project/templates/add_book.html	(date 1557306116303)
++++ Django_CRUD_Project/templates/add_book.html	(date 1557306116303)
+@@ -0,0 +1,22 @@
++{% extends 'base.html' %}
++
++
++
++{% block content %}
++{% csrf_token %}
++<form action="/create">
++    <label class="form-group" for="title">Title : </label>
++    <input class="form-control" type="text" name="title" /><br>
++ <label class="form-group" for="price">Price : </label>
++    <input class="form-control" type="text" name="price" /><br>
++ <label class="form-group" for="author">Author : </label>
++    <input class="form-control" type="text" name="author" /><br>
++    <input class="btn btn-info" type="submit" value="Create">
++
++</form>
++{% endblock %}
++
++
++
++
++
+Index: Django_CRUD_Project/templates/edit.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Django_CRUD_Project/templates/edit.html	(date 1557306527707)
++++ Django_CRUD_Project/templates/edit.html	(date 1557306527707)
+@@ -0,0 +1,22 @@
++{% extends 'base.html' %}
++
++
++
++{% block content %}
++{% csrf_token %}
++<form action="/update/{{book.id}}">
++    <label class="form-group" for="title">Title : </label>
++    <input class="form-control" type="text" name="title" value="{{book.title}}" /><br>
++ <label class="form-group" for="price">Price : </label>
++    <input class="form-control" type="text" name="price" value="{{book.price}}" /><br>
++ <label class="form-group" for="author">Author : </label>
++    <input class="form-control" type="text" name="author" value="{{book.author}}" /><br>
++    <input class="btn btn-info" type="submit" value="Create">
++
++</form>
++{% endblock %}
++
++
++
++
++
