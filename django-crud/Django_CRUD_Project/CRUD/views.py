@@ -1,5 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import BookList
+from django.core.files.storage import FileSystemStorage
+
 # Create your views here.
 def index(request):
     book=BookList.objects.all()
@@ -36,3 +38,19 @@ def create(request):
 
 def add_book(request):
     return render(request,'add_book.html')
+
+  #file upload
+
+def upload(request):
+    context = {}
+
+    if request.method == 'POST':
+        uploadFile = request.FILES['file']
+        fs = FileSystemStorage()
+        name = fs.save(uploadFile.name, uploadFile)
+        context['url'] = fs.url(name)
+    return render(request, 'upload.html', context)
+
+
+
+

@@ -1,0 +1,12 @@
+<h2>grokonez UploadFile</h2>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <input type="file" name="file">
+  <button type="submit">Upload</button>
+</form>
+
+{% if url %}
+  Upload completely:<br/>
+  <a href="{{ url }}">{{ url }}</a>
+{% endif %}
